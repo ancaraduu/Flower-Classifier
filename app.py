@@ -128,8 +128,16 @@ if uploaded_file is not None:
         ax2.set_ylabel('True')
         ax2.set_title('Confusion Matrix')
         st.pyplot(fig2)
-        st.text("Classification Report:")
-        st.text(classification_report(val_true, val_pred, target_names=class_names))
+
+        # Classification report as a styled heatmap
+        import pandas as pd
+        report_dict = classification_report(val_true, val_pred, target_names=class_names, output_dict=True)
+        # Remove 'accuracy', 'macro avg', 'weighted avg' for a cleaner table
+        report_df = pd.DataFrame(report_dict).transpose().drop(['accuracy', 'macro avg', 'weighted avg'], errors='ignore')
+        fig3, ax3 = plt.subplots(figsize=(8, 3))
+        sns.heatmap(report_df.iloc[:, :3], annot=True, fmt='.2f', cmap='Purples', cbar=False, ax=ax3)
+        ax3.set_title('Classification Report')
+        st.pyplot(fig3)
 
 # Footer
 st.markdown(
