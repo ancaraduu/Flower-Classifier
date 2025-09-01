@@ -7,8 +7,18 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 img_height, img_width = 180, 180
 batch_size = 32
 
-# Încarcă imaginile din folder
-train_ds = ImageDataGenerator(rescale=1./255, validation_split=0.2)
+# Încarcă imaginile din folder cu augmentare de date
+train_ds = ImageDataGenerator(
+    rescale=1./255,
+    validation_split=0.2,
+    rotation_range=30,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
 
 train_data = train_ds.flow_from_directory(
     "dataset",
