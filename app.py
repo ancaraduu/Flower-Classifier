@@ -18,17 +18,48 @@ def load_flower_model():
 
 model = load_flower_model()
 
+# Add custom CSS for background, fonts, and upload box
+st.markdown("""
+    <style>
+        .stApp {
+            background-color: #C6A1CF;
+        }
+        h1, .stMarkdown, .stText, .stTitle, .stHeader, .stSubheader, .stCaption, .stDataFrame, .stTable, .stSuccess, .stSpinner, .stFileUploader, .stButton, .stSidebar, .css-10trblm, .css-1d391kg, .css-1v0mbdj, .css-1cpxqw2 {
+            color: white !important;
+        }
+        .stSidebar {
+            background-color: #896F8F !important;
+            min-width: 340px !important;
+            max-width: 340px !important;
+        }
+        .stFileUploader > div {
+            border: 2px dashed #896F8F;
+            background-color: #C6A1CF;
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .stFileUploader label, .stFileUploader span, .stFileUploader .css-1cpxqw2, .stFileUploader .css-1c7y2kd, .stFileUploader .css-1aehpvj, .stFileUploader .e1b2p2ww10 {
+            color: #896F8F !important;
+            font-weight: bold;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Sidebar
 with st.sidebar:
-    st.title("Flower Classifier")
     st.markdown("""
-    **Supported classes:**
-    - Daisy
-    - Dandelion
-    - Rose
-    - Sunflower
-    - Tulip
-    """)
+    <div style='margin-top: 50px; text-align:center; font-weight:bold; font-size:1.6em;'>🌸 <b>Flower Classifier</b> 🌸</div>
+    """, unsafe_allow_html=True)
+    st.markdown("""
+    <div style='margin-left: 60px; margin-top: 40px; font-size:1.3em;'>
+    <b>Supported classes:</b><br>
+    - 🌼 Daisy<br>
+    - 🌻 Dandelion<br>
+    - 🌹 Rose<br>
+    - 🌻 Sunflower<br>
+    - 🌷 Tulip
+    </div>
+    """, unsafe_allow_html=True)
 
 
 st.markdown("""
@@ -54,3 +85,10 @@ if uploaded_file is not None:
         predicted_class = class_names[np.argmax(prediction)]
         confidence = np.max(prediction) * 100
     st.success(f"🌼 Predicted species: **{predicted_class.capitalize()}** ({confidence:.2f}% confidence)")
+
+# Footer
+st.markdown(
+    "<hr style='margin-top:40px;margin-bottom:10px;'>"
+    "<div style='text-align:center; color: white;'>Made with ❤️</div>",
+    unsafe_allow_html=True
+)
